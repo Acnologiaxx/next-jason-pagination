@@ -1,20 +1,24 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const router = useRouter();
+  const { push } = useRouter();
   const [counter, setCounter] = useState(3);
+
+  const decrementCounter = useCallback(() => {
+    setCounter((prevCounter) => prevCounter - 1);
+  }, []);
 
   useEffect(() => {
     if (counter > 0) {
-      const timer = setTimeout(() => setCounter(counter - 1), 1000);
+      const timer = setTimeout(decrementCounter, 1000);
       return () => clearTimeout(timer);
     } else {
-      router.push("/users");
+      push("/users");
     }
-  }, [counter, router]);
+  }, [counter, decrementCounter, push]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">

@@ -8,9 +8,9 @@ import LoadMoreButton from '../../components/LoadMoreButton';
 import { User } from '../../types/user.types';
 
 const UsersPage: React.FC = () => {
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState(1);
   const [allUsers, setAllUsers] = useState<User[]>([]);
-  const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const { data, error, isLoading, isFetching, isError }: UseQueryResult<{ users: User[], total: number, totalPages: number }, Error> = useQuery({
     queryKey: ['users', page],
@@ -26,9 +26,7 @@ const UsersPage: React.FC = () => {
     }
   }, [data]);
 
-  const loadMoreUsers = (): void => {
-    setPage((prevPage) => prevPage + 1);
-  };
+  const loadMoreUsers = () => setPage((prevPage) => prevPage + 1);
 
   const hasMore = page < totalPages;
 
@@ -36,7 +34,7 @@ const UsersPage: React.FC = () => {
     <div className="container mx-auto p-4">
       {isError && <p className="text-red-500">{error?.message}</p>}
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {allUsers.map((user: User) => (
+        {allUsers.map((user) => (
           <UserCard key={user.id} user={user} />
         ))}
       </ul>
