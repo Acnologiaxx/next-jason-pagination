@@ -21,11 +21,15 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
   return (
     <li className="p-4 rounded-md bg-white flex flex-col items-center space-y-2">
       <Image
-        src={avatar ?? "/default-avatar.png"} // Fallback image
+        src={avatar ?? "/default-avatar.png"}
         alt={`${first_name} ${last_name}`}
         width={50}
         height={50}
         className="rounded-full"
+        style={{ width: 'auto', height: 'auto' }} 
+        priority
+        loading="eager"
+        quality={75}
       />
       <p className="text-gray-500">{id}</p>
       <p className="text-gray-500">{email}</p>
