@@ -33,8 +33,14 @@ export const fetchUsers = async (page: number): Promise<FetchUsersResponse> => {
       totalPages,
     };
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Failed to fetch users: ${error.message}`);
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        throw new Error(`Failed to fetch users: ${error.response.status} ${error.response.statusText}`);
+      } else if (error.request) {
+        throw new Error("Failed to fetch users: No response received from server");
+      } else {
+        throw new Error(`Failed to fetch users: ${error.message}`);
+      }
     } else {
       throw new Error("Failed to fetch users due to an unknown error");
     }
