@@ -25,8 +25,7 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
         alt={`${first_name} ${last_name}`}
         width={50}
         height={50}
-        className="rounded-full"
-        style={{ width: 'auto', height: 'auto' }} 
+        className="rounded-full object-cover w-12 h-12"
         priority
         loading="eager"
         quality={75}
