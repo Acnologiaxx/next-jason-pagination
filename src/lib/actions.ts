@@ -8,7 +8,6 @@ export async function loadMoreUsers(page: number, initialUsers: User[]) {
   try {
     const { users, totalPages } = await fetchUsers(nextPage);
     const updatedUsers = [...initialUsers, ...users];
-    console.log({ updatedUsers, totalPages, nextPage });
     return { updatedUsers, totalPages, nextPage };
   } catch (error) {
     if (error instanceof Error) {
